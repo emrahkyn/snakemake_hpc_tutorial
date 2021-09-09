@@ -1,0 +1,324 @@
+-bash-4.2$ git clone https://github.com/CompGenomeLab/phylogeny-snakemake.git             
+Cloning into 'phylogeny-snakemake'...
+remote: Enumerating objects: 727, done.
+remote: Counting objects: 100% (727/727), done.
+remote: Compressing objects: 100% (502/502), done.
+remote: Total 727 (delta 417), reused 450 (delta 197), pack-reused 0
+Receiving objects: 100% (727/727), 233.07 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (417/417), done.
+-bash-4.2$ ls
+phylogeny-snakemake
+-bash-4.2$ cd phylogeny-snakemake/resources/
+-bash-4.2$ ls -la
+total 17
+drwxrwxr-x 4 emrah emrah 4096 Eyl  9 15:14 .
+drwxrwxr-x 7 emrah emrah 4096 Eyl  9 15:14 ..
+lrwxrwxrwx 1 emrah emrah   34 Eyl  9 15:14 blastdb -> /cta/groups/adebali/static/blastdb
+-rw-rw-r-- 1 emrah emrah 1721 Eyl  9 15:14 JTT.dat.txt
+-rw-rw-r-- 1 emrah emrah 1912 Eyl  9 15:14 lg_LG.PAML.txt
+lrwxrwxrwx 1 emrah emrah   35 Eyl  9 15:14 paml4.9j -> /cta/groups/adebali/static/paml4.9j
+drwxrwxr-x 2 emrah emrah 4096 Eyl  9 15:14 query_fasta
+drwxrwxr-x 3 emrah emrah 4096 Eyl  9 15:14 query_ids
+-bash-4.2$ rm -rf blastdb paml4.9j 
+-bash-4.2$ ln -s /truba/home/emrah/shared/paml4.9j paml4.9j
+-bash-4.2$ ln -s /truba/home/emrah/shared/blastdb blastdb
+-bash-4.2$ 
+-bash-4.2$ cd ../workflow/
+-bash-4.2$ ls
+envs  logs  rules  scripts  Snakefile
+-bash-4.2$ cd ..
+-bash-4.2$ pwd
+/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake
+-bash-4.2$ vi config/config.yml 
+-bash-4.2$ export SNAKEMAKE_OUTPUT_CACHE=/home/emrah/temp               
+-bash-4.2$ cd workflow/
+-bash-4.2$ snakemake --use-conda --cache --profile ../config/slurm_truba --dry-run
+-bash: snakemake: command not found
+-bash-4.2$ source ~/miniconda3/etc/profile.d/conda.sh                                               
+-bash-4.2$ conda activate snakemake                                                               
+(snakemake) -bash-4.2$ snakemake --use-conda --cache --profile ../config/slurm_truba --dry-run
+['P13942', 'P16157']
+Building DAG of jobs...
+Conda environment envs/raxml-ng.yml will be created.
+Conda environment envs/python.yml will be created.
+Conda environment envs/r-base.yml will be created.
+Conda environment envs/mafft.yml will be created.
+Conda environment envs/trimal.yml will be created.
+Conda environment envs/prune.yml will be created.
+Conda environment envs/blastp.yml will be created.
+Job counts:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Thu Sep  9 15:18:17 2021]
+rule query_fasta:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157.fasta                                                    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_query_fasta.err                                                   
+    jobid: 14                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_query_fasta.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157.fasta will be written to global between-workflow cache.  
+
+[Thu Sep  9 15:18:49 2021]
+rule query_fasta:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942.fasta                                                    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_query_fasta.err                                                   
+    jobid: 4                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_query_fasta.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942.fasta will be written to global between-workflow cache.  
+
+[Thu Sep  9 15:19:18 2021]
+rule psiblastp:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157.fasta                       
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.out                                            
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_psiblastp.err                                                     
+    jobid: 17                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_psiblastp.out                                          
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.out will be written to global between-workflow cache.                                                                                              
+
+[Thu Sep  9 15:19:47 2021]
+rule psiblastp:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942.fasta                       
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.out                                            
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_psiblastp.err                                                     
+    jobid: 7                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_psiblastp.out                                          
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.out will be written to global between-workflow cache.                                                                                              
+
+[Thu Sep  9 15:20:16 2021]
+rule get_blasthits:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.out, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta                                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.fasta                                          
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_get_blasthits.err                                                 
+    jobid: 16                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_get_blasthits.out                                      
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=300                                                                 
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.fasta will be written to global between-workflow cache.                                                                                            
+
+[Thu Sep  9 15:20:44 2021]
+rule get_blasthits:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.out, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/resources/blastdb/all_eu.fasta                                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.fasta                                          
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_get_blasthits.err                                                 
+    jobid: 6                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_get_blasthits.out                                      
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=300                                                                 
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.fasta will be written to global between-workflow cache.                                                                                            
+
+[Thu Sep  9 15:21:12 2021]
+rule msa:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157_blasthits.fasta                                           
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_blasthits_msa.fasta                                           
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_msa.err                                                           
+    jobid: 15                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_msa.out                                                
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_blasthits_msa.fasta will be written to global between-workflow cache.                                                                                             
+
+[Thu Sep  9 15:21:12 2021]
+rule msa:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942_blasthits.fasta                                           
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_blasthits_msa.fasta                                           
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_msa.err                                                           
+    jobid: 5                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_msa.out                                                
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_blasthits_msa.fasta will be written to global between-workflow cache.                                                                                             
+
+[Thu Sep  9 15:21:12 2021]
+rule trim_msa:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_blasthits_msa.fasta                                            
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_trimmed_msa.fasta                                             
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_trim_msa.err                                                      
+    jobid: 19                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_trim_msa.out                                           
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_trimmed_msa.fasta will be written to global between-workflow cache.                                                                                               
+
+[Thu Sep  9 15:21:12 2021]
+rule trim_msa:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_blasthits_msa.fasta                                            
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_trimmed_msa.fasta                                             
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_trim_msa.err                                                      
+    jobid: 9                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_trim_msa.out                                           
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_trimmed_msa.fasta will be written to global between-workflow cache.                                                                                               
+
+[Thu Sep  9 15:21:12 2021]
+rule ml_tree:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_trimmed_msa.fasta                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree                                             
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_mltree.err                                                        
+    jobid: 18                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_ml_tree.out                                            
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=8, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree will be written to global between-workflow cache.                                                                                               
+
+[Thu Sep  9 15:21:12 2021]
+rule ml_tree:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_trimmed_msa.fasta                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree                                             
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_mltree.err                                                        
+    jobid: 8                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_ml_tree.out                                            
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=8, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree will be written to global between-workflow cache.                                                                                               
+
+[Thu Sep  9 15:21:12 2021]
+rule unroot_tree:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree_unrooted                                    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_unroot_tree.err                                                   
+    jobid: 10                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_unroot_tree.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree_unrooted will be written to global between-workflow cache.                                                                                      
+
+[Thu Sep  9 15:21:12 2021]
+rule remove_gaps:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/1_psiblast/P16157.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_blasthits_msa.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_nogap_msa.fasta                                               
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_remove_gaps.err                                                   
+    jobid: 13                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_remove_gaps.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_nogap_msa.fasta will be written to global between-workflow cache.                                                                                                 
+
+[Thu Sep  9 15:21:12 2021]
+rule unroot_tree:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree_unrooted                                    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_unroot_tree.err                                                   
+    jobid: 20                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_unroot_tree.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree_unrooted will be written to global between-workflow cache.                                                                                      
+
+[Thu Sep  9 15:21:12 2021]
+rule remove_gaps:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/1_psiblast/P13942.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_blasthits_msa.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree                                                             
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_nogap_msa.fasta                                               
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_remove_gaps.err                                                   
+    jobid: 3                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_remove_gaps.out                                        
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_nogap_msa.fasta will be written to global between-workflow cache.                                                                                                 
+
+[Thu Sep  9 15:21:12 2021]
+rule raxmlng_ancestral:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/2_msa/P13942_nogap_msa.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/3_mltree/P13942.raxml.bestTree_unrooted                                                                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralProbs, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralStates, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralTree    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_raxmlng_ancestral.err                                             
+    jobid: 2                                                                                        
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_raxmlng_ancestral.out                                  
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralProbs will be written to global between-workflow cache.                                                                              
+
+[Thu Sep  9 15:21:12 2021]
+rule raxmlng_ancestral:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/2_msa/P16157_nogap_msa.fasta, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/3_mltree/P16157.raxml.bestTree_unrooted                                                                                              
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralProbs, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralStates, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralTree    
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_raxmlng_ancestral.err                                             
+    jobid: 12                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_raxmlng_ancestral.out                                  
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157                                                               
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralProbs will be written to global between-workflow cache.                                                                              
+
+[Thu Sep  9 15:21:12 2021]
+rule raxml_anc_score:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralTree, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/4_raxmlng_ancestral/P16157.raxml.ancestralProbs                                                                    
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/5_raxmlng_ancestral_scores/P16157_wol_param_CountNodes_1.csv, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/5_raxmlng_ancestral_scores/P16157_wl_param_CountNodes_1.csv                                         
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P16157_raxmlanc_CountNodes_1_compute_score.err                           
+    jobid: 11                                                                                       
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P16157_raxmlanc_CountNodes_1_compute_score.out                
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P16157, pattern=CountNodes_1                                         
+    resources: cpus=4, time_min=9600                                                                
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/5_raxmlng_ancestral_scores/P16157_wol_param_CountNodes_1.csv will be written to global between-workflow cache.                                                                 
+
+[Thu Sep  9 15:21:12 2021]
+rule raxml_anc_score:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralTree, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/4_raxmlng_ancestral/P13942.raxml.ancestralProbs
+    output: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/5_raxmlng_ancestral_scores/P13942_wol_param_CountNodes_1.csv, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/5_raxmlng_ancestral_scores/P13942_wl_param_CountNodes_1.csv
+    log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/rules/P13942_raxmlanc_CountNodes_1_compute_score.err
+    jobid: 1
+    benchmark: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/workflow/logs/benchmarks/P13942_raxmlanc_CountNodes_1_compute_score.out
+    wildcards: workdir=/truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake, query_id=P13942, pattern=CountNodes_1
+    resources: cpus=4, time_min=9600
+
+Output file /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/5_raxmlng_ancestral_scores/P13942_wol_param_CountNodes_1.csv will be written to global between-workflow cache.
+
+[Thu Sep  9 15:21:12 2021]
+localrule all:
+    input: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P13942/5_raxmlng_ancestral_scores/P13942_wl_param_CountNodes_1.csv, /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/workflow_on_hpc_tutorial/exp6/phylogeny-snakemake/results/P16157/5_raxmlng_ancestral_scores/P16157_wl_param_CountNodes_1.csv
+    jobid: 0
+    resources: cpus=4, time_min=9600
+
+Job counts:
+        count   jobs
+        1       all
+        2       get_blasthits
+        2       ml_tree
+        2       msa
+        2       psiblastp
+        2       query_fasta
+        2       raxml_anc_score
+        2       raxmlng_ancestral
+        2       remove_gaps
+        2       trim_msa
+        2       unroot_tree
+        21
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.
