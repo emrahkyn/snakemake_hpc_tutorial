@@ -1,0 +1,22 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	psiblastp
+	1
+Select jobs to execute...
+
+[Sun Sep  5 22:15:26 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P68871/P68871.fasta
+    output: output/P68871/P68871_blasthits.out
+    log: logs/P68871_psiblastp.err
+    jobid: 0
+    wildcards: query_id=P68871
+
+Activating conda environment: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp5/.snakemake/conda/75b63ec4
+[Sun Sep  5 22:17:36 2021]
+Finished job 0.
+1 of 1 steps (100%) done

@@ -1,0 +1,15 @@
+#general config
+query_ids: ["P01008", "P22033", "P68871"]
+workdir: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp5
+#
+##blast
+blastdb: "/truba/home/emrah/shared/blastdb/all_eu.fasta"
+outfmt: "0"
+max_target_seqs: "5000"
+num_iterations: "2"
+#
+##parse blast
+blast_hit_number: "1000"
+max_e_value: "0.00001"
+min_identity: "30"
+max_identity: "95"

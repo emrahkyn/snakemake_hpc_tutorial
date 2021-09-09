@@ -1,0 +1,1 @@
+Warning: [psiblast] Query_1 sp|P68871|HBB_HUM.. : Composition-based score adjustment conditioned on sequence properties and unconditional composition-based score adjustment is not supported with PSSMs, resetting to default value of standard composition-based statistics 

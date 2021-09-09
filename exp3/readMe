@@ -1,0 +1,128 @@
+duplicate slurm jobs and change slurm job name, batch file, and query id within the batch file
+  P01008.slurm  P22033.slurm  P68871.slurm
+
+Exp case: I forgot to chage workdir, so I have to do all slurm jobs one by one
+
+for 3 proteins and 3 tasks per protein:
+ 9 log file for each task
+ 9 output file, sequentially created
+ 6 slurm output and error files
+ 
+for 20K protein and 10 task per protein
+ 200K log file for each task
+ 200K output file
+ 40K slurm output and error file
+ 
+-bash-4.2$ ls
+input  logs  output  P01008.slurm  P22033.slurm  P68871.slurm  scripts
+
+-bash-4.2$ sbatch P01008.slurm 
+Submitted batch job 7562990
+
+-bash-4.2$ ls
+input  logs  output  P01008.slurm  P22033.slurm  P68871.slurm  scripts  slurm-7562990.err  slurm-7562990.out
+
+-bash-4.2$ sbatch P22033.slurm
+Submitted batch job 7562991
+
+-bash-4.2$ sbatch P68871.slurm
+Submitted batch job 7562992
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562992  sardalya   P68871    emrah PD       0:00      1 (Resources)
+           7562991  sardalya   P22033    emrah  R       0:09      1 sardalya153
+           7562990  sardalya   P01008    emrah  R       0:17      1 sardalya153
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562992  sardalya   P68871    emrah PD       0:00      1 (Resources)
+           7562991  sardalya   P22033    emrah  R       0:18      1 sardalya153
+           7562990  sardalya   P01008    emrah  R       0:26      1 sardalya153
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562992  sardalya   P68871    emrah  R       0:05      1 sardalya30
+           7562991  sardalya   P22033    emrah  R       0:26      1 sardalya153
+           7562990  sardalya   P01008    emrah  R       0:34      1 sardalya153
+
+-bash-4.2$ ls
+input  output        P22033.slurm  scripts            slurm-7562990.out  slurm-7562991.out  slurm-7562992.out
+logs   P01008.slurm  P68871.slurm  slurm-7562990.err  slurm-7562991.err  slurm-7562992.err
+
+-bash-4.2$ ls logs/
+P01008_task1.err  P01008_task2.err  P22033_task1.err  P22033_task2.err  P68871_task1.err
+
+-bash-4.2$ tail -f slurm-756299*
+==> slurm-7562990.err <==
+
+==> slurm-7562990.out <==
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 22:27:28 +03 2021
+Task1: Query Fasta
+Task2: Blast
+
+==> slurm-7562991.err <==
+
+==> slurm-7562991.out <==
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 22:27:36 +03 2021
+Task1: Query Fasta
+Task2: Blast
+
+==> slurm-7562992.err <==
+
+==> slurm-7562992.out <==
+SLURM_NODELIST sardalya30
+Run started: Cts Eyl  4 22:29:52 +03 2021
+Task1: Query Fasta
+Task2: Blast
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562992  sardalya   P68871    emrah  R       1:03      1 sardalya30
+           7562991  sardalya   P22033    emrah  R       1:24      1 sardalya153
+           7562990  sardalya   P01008    emrah  R       1:32      1 sardalya153
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+
+-bash-4.2$ ls
+input  output        P22033.slurm  scripts            slurm-7562990.out  slurm-7562991.out  slurm-7562992.out
+logs   P01008.slurm  P68871.slurm  slurm-7562990.err  slurm-7562991.err  slurm-7562992.err
+
+-bash-4.2$ cat slurm-756299*.err
+
+-bash-4.2$ cat slurm-756299*.out
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 22:27:28 +03 2021
+Task1: Query Fasta
+Task2: Blast
+Task3: Get Blasthits
+Run finished: Cts Eyl  4 22:36:36 +03 2021
+DONE
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 22:27:36 +03 2021
+Task1: Query Fasta
+Task2: Blast
+Task3: Get Blasthits
+Run finished: Cts Eyl  4 22:37:57 +03 2021
+DONE
+SLURM_NODELIST sardalya30
+Run started: Cts Eyl  4 22:29:52 +03 2021
+Task1: Query Fasta
+Task2: Blast
+Task3: Get Blasthits
+Run finished: Cts Eyl  4 22:35:55 +03 2021
+DONE
+
+-bash-4.2$ ls
+input  output        P22033.slurm  scripts            slurm-7562990.out  slurm-7562991.out  slurm-7562992.out
+logs   P01008.slurm  P68871.slurm  slurm-7562990.err  slurm-7562991.err  slurm-7562992.err
+
+-bash-4.2$ ls output/
+P01008_blasthits.fasta  P01008.fasta            P22033_blasthits.out  P68871_blasthits.fasta  P68871.fasta
+P01008_blasthits.out    P22033_blasthits.fasta  P22033.fasta          P68871_blasthits.out
+
+-bash-4.2$ ls logs/
+P01008_task1.err  P01008_task3.err  P22033_task2.err  P68871_task1.err  P68871_task3.err
+P01008_task2.err  P22033_task1.err  P22033_task3.err  P68871_task2.err
+

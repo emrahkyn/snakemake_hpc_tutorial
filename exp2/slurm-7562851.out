@@ -1,0 +1,7 @@
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 21:58:58 +03 2021
+Task1: Query Fasta
+Task2: Blast
+Task3: Get Blasthits
+Run finished: Cts Eyl  4 22:08:07 +03 2021
+DONE

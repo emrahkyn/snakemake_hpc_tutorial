@@ -1,0 +1,21 @@
+slurmstepd: error: task/cgroup: unable to add task[pid=77918] to memory cg '(null)'
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	task1
+	1
+Select jobs to execute...
+
+[Sun Sep  5 13:15:12 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+[Sun Sep  5 13:15:12 2021]
+Finished job 0.
+1 of 1 steps (100%) done

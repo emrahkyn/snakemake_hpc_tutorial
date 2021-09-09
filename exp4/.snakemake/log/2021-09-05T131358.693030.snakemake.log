@@ -1,0 +1,21 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 1
+Job counts:
+	count	jobs
+	1	task1
+	1
+Select jobs to execute...
+
+[Sun Sep  5 13:13:58 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+Submitted job 0 with external jobid 'Submitted batch job 7563844'.
+[Sun Sep  5 13:14:18 2021]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/log/2021-09-05T131358.693030.snakemake.log

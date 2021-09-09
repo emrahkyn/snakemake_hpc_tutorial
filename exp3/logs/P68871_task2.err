@@ -1,0 +1,2 @@
+Warning: [psiblast] The parameter -max_target_seqs is ignored for output formats, 0,1,2,3. Use -num_descriptions and -num_alignments to control output
+Warning: [psiblast] lcl|Query_1 sp|P68871|HBB_HUMAN Hemoglobin subunit beta OS=Homo sapiens OX=9606 GN=HBB PE=1 SV=2: Warning: Composition-based score adjustment conditioned on sequence properties and unconditional composition-based score adjustment is not supported with PSSMs, resetting to default value of standard composition-based statistics 

@@ -1,0 +1,31 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 1
+Job counts:
+	count	jobs
+	1	task1
+	1
+Select jobs to execute...
+
+[Sun Sep  5 13:12:40 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+Submitted job 0 with external jobid 'Submitted batch job 7563843'.
+[Sun Sep  5 13:12:50 2021]
+Error in rule task1:
+    jobid: 0
+    output: textOutputFile
+    log: task1.err (check log file(s) for error message)
+    shell:
+        python countLines.py textInputFile textOutputFile 2 > task1.err
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+    cluster_jobid: Submitted batch job 7563843
+
+Error executing rule task1 on cluster (jobid: 0, external: Submitted batch job 7563843, jobscript: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/tmp.tjqxvq7e/snakejob.task1.0.sh). For error details see the cluster log and the log files of the involved rule(s).
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/log/2021-09-05T131240.295620.snakemake.log

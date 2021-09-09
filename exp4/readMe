@@ -1,0 +1,110 @@
+-bash-4.2$ python countLines.py textInputFile textOutputFile
+-bash-4.2$ ls
+countLines.py  Snakefile  textInputFile  textOutputFile
+-bash-4.2$ cat textOutputFile 
+# of Lines: 5
+
+-bash-4.2$ source ~/miniconda3/etc/profile.d/conda.sh
+-bash-4.2$ conda activate snakemake
+(snakemake) -bash-4.2$ snakemake -j 1
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+        count   jobs
+        1       task1
+        1
+Select jobs to execute...
+
+[Sun Sep  5 13:04:00 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+[Sun Sep  5 13:04:00 2021]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/log/2021-09-05T130400.071324.snakemake.log
+(snakemake) -bash-4.2$ ls 
+countLines.py  Snakefile  task1.err  textInputFile  textOutputFile
+(snakemake) -bash-4.2$ cat textOutputFile 
+# of Lines: 5
+
+(snakemake) -bash-4.2$ cat .snakemake/log/2021-09-05T130400.071324.snakemake.log
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+        count   jobs
+        1       task1
+        1
+Select jobs to execute...
+
+[Sun Sep  5 13:04:00 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+[Sun Sep  5 13:04:00 2021]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/log/2021-09-05T130400.071324.snakemake.log
+
+2$ 
+(snakemake) -bash-4.2$ snakemake -j 1 --cluster "sbatch -A emrah -p sardalya -n 1 -J test.job"
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 1
+Job counts:
+
+
+
+Select jobs to execute...
+
+[Sun Sep  5 13:14:57 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+sbatch: 1 cekirdekli isler sadece Single ve Mecan kuyruklarina gonderilebilir. Isiniz Single kuyruguna yonlendirilmistir.
+Submitted job 0 with external jobid 'Submitted batch job 7563845'.
+[Sun Sep  5 13:15:17 2021]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp4/.snakemake/log/2021-09-05T131457.207403.snakemake.log
+(snakemake) -bash-4.2$ ls
+countLines.py  slurm-7563845.out  Snakefile  task1.err  textInputFile  textOutputFile
+(snakemake) -bash-4.2$ cat slurm-7563845.out 
+slurmstepd: error: task/cgroup: unable to add task[pid=77918] to memory cg '(null)'
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job counts:
+        count   jobs
+        1       task1
+        1
+Select jobs to execute...
+
+[Sun Sep  5 13:15:12 2021]
+rule task1:
+    input: textInputFile
+    output: textOutputFile
+    log: task1.err
+    jobid: 0
+
+[Sun Sep  5 13:15:12 2021]
+Finished job 0.
+1 of 1 steps (100%) done
+(snakemake) -bash-4.2$ cat task1.err 
+(snakemake) -bash-4.2$ cat textOutputFile 
+# of Lines: 5
+

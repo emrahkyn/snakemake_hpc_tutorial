@@ -1,0 +1,10 @@
+rule task1:
+	input:
+		text_file = "textInputFile"	
+	output:
+		text_output = "textOutputFile"
+	log:
+		"task1.err"
+	shell:
+		"python countLines.py {input.text_file} {output.text_output} 2 > {log}"
+

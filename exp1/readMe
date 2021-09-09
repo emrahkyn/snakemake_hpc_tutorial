@@ -1,0 +1,29 @@
+-bash-4.2$ sbatch test.slurm 
+Submitted batch job 7562659
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562659  sardalya EmrahTes    emrah  R       0:06      1 sardalya30
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562659  sardalya EmrahTes    emrah CG       0:15      1 sardalya30
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+
+-bash-4.2$ ls -lrt
+total 9
+-rwxr-xr-x 1 emrah emrah  62 Eyl  4 19:47 hello_world.py
+-rw-r--r-- 1 emrah emrah 556 Eyl  4 19:54 test.slurm
+-rw-rw-r-- 1 emrah emrah   0 Eyl  4 19:54 slurm-7562659.err
+-rw-rw-r-- 1 emrah emrah  12 Eyl  4 19:54 test.out
+-rw-rw-r-- 1 emrah emrah  67 Eyl  4 19:54 slurm-7562659.out
+
+-bash-4.2$ cat slurm-7562659.err 
+
+-bash-4.2$ cat slurm-7562659.out 
+SLURM_NODELIST sardalya30
+/truba/home/emrah/python/bin/python
+DONE
+

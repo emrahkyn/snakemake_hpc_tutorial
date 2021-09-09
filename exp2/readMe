@@ -1,0 +1,101 @@
+#BLAST
+1- find the official installation guide
+https://www.ncbi.nlm.nih.gov/books/NBK569861/
+2- select the proper installation method, for Linux O.S without super user right
+Source tarball
+https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
+wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.2.31/ncbi-blast-2.2.31+-src.tar.gz .
+3- compile and build
+tar xzvf ncbi-blast-2.2.31+-src.tar.gz
+cd ncbi-blast-2.2.31+-src/c++
+./configure
+	compiling a library/tool from source code is a headache
+	time consuming
+	check hundreds dependencies
+	advanced configuration required
+		compiler selection, gnu, intel
+		cpu architecture, amd, intel, gpu
+		library specific setups such as dependencies, mpi, openmp, 
+	crucial performance tuning 
+	not portable nor reproducable, specific to your hpc cluster
+cd ReleaseMT/build
+make all_r
+takes around 1h
+4- set PATH and test cli
+
+
+Follow the standard approach for the workload
+...input
+ -all input files required for a run
+...output
+ -all output files required for a run
+...logs
+ -all log files obtained during the run
+...scripts
+ -all bash script files required for a run
+...sw
+ -all customized sw that we compiled & built
+...test.slurm
+ -slurm batch script
+ 
+ Problems
+ configuration in bash script
+not easy to follow sequentially created output files in order
+if job fails, execute everything
+customize sw/tool is headache, not portable nor reproducable
+assigning equal number of cpu & amount of memory & time limit for each task is must and not practical
+how to increase number of tasks
+ or insert another task between existing ones
+   please consider the input output file flow throughout the sequential tasks
+how to scale out a new proteins
+ create a new folder following the same schema
+  what happened if you run for 20K protein
+  how to know which protein failed and why? 
+  how to debug and solve the issue? 
+  if a change is required, for example, sw release or parameter, how to manage and archive new results? start over from the beginning?  
+ 
+
+-bash-4.2$ sbatch test.slurm 
+Submitted batch job 7562851
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562851  sardalya EmrahTes    emrah  R       0:01      1 sardalya153
+
+-bash-4.2$ tail -f slurm-7562851.* logs/*
+==> slurm-7562851.err <==
+
+==> slurm-7562851.out <==
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 21:58:58 +03 2021
+Task1: Query Fasta
+
+==> logs/task1.err <==
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7562851  sardalya EmrahTes    emrah  R       0:34      1 sardalya153
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+
+-bash-4.2$ cat slurm-7562851.err 
+
+-bash-4.2$ cat slurm-7562851.out 
+SLURM_NODELIST sardalya153
+Run started: Cts Eyl  4 21:58:58 +03 2021
+Task1: Query Fasta
+Task2: Blast
+Task3: Get Blasthits
+Run finished: Cts Eyl  4 22:08:07 +03 2021
+DONE
+
+-bash-4.2$ ls output/
+P01008_blasthits.fasta  P01008_blasthits.out  P01008.fasta
+
+-bash-4.2$ ls
+input  logs  output  readMe  scripts  slurm-7562851.err  slurm-7562851.out  sw  test.slurm
+
+-bash-4.2$ cat logs/*
+Warning: [psiblast] The parameter -max_target_seqs is ignored for output formats, 0,1,2,3. Use -num_descriptions and -num_alignments to control output
+Warning: [psiblast] lcl|Query_1 sp|P01008|ANT3_HUMAN Antithrombin-III OS=Homo sapiens OX=9606 GN=SERPINC1 PE=1 SV=1: Warning: Composition-based score adjustment conditioned on sequence properties and unconditional composition-based score adjustment is not supported with PSSMs, resetting to default value of standard composition-based statistics 

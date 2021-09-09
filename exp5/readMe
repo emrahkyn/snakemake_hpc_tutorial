@@ -1,0 +1,371 @@
+Do not require to compute tasks which have already done before if a task is failed. Delete one output file and run the snakemake with the same parameter. Only missing tasks will be computed.
+check output file, it's organized better. Each task put its results into proper folder
+ 
+
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  --dry-run
+Building DAG of jobs...
+Conda environment envs/blastp.yml will be created.
+Conda environment envs/python.yml will be created.
+Job counts:
+
+
+
+
+
+
+
+[Sun Sep  5 22:12:03 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P68871/P68871.fasta                                                                                                                     
+    log: logs/P68871_query_fasta.err                                                                                                                       
+    jobid: 9                                                                                                                                               
+    wildcards: query_id=P68871                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P22033/P22033.fasta                                                                                                                     
+    log: logs/P22033_query_fasta.err                                                                                                                       
+    jobid: 6                                                                                                                                               
+    wildcards: query_id=P22033                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P01008/P01008.fasta                                                                                                                     
+    log: logs/P01008_query_fasta.err                                                                                                                       
+    jobid: 3                                                                                                                                               
+    wildcards: query_id=P01008                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P01008/P01008.fasta                                                                       
+    output: output/P01008/P01008_blasthits.out                                                                                                             
+    log: logs/P01008_psiblastp.err                                                                                                                         
+    jobid: 2                                                                                                                                               
+    wildcards: query_id=P01008                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P22033/P22033.fasta                                                                       
+    output: output/P22033/P22033_blasthits.out                                                                                                             
+    log: logs/P22033_psiblastp.err                                                                                                                         
+    jobid: 5                                                                                                                                               
+    wildcards: query_id=P22033                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P68871/P68871.fasta                                                                       
+    output: output/P68871/P68871_blasthits.out                                                                                                             
+    log: logs/P68871_psiblastp.err                                                                                                                         
+    jobid: 8                                                                                                                                               
+    wildcards: query_id=P68871                                                                                                                             
+
+
+[Sun Sep  5 22:12:03 2021]
+rule get_blasthits:
+    input: output/P22033/P22033_blasthits.out, output/P22033/P22033.fasta, /truba/home/emrah/shared/blastdb/all_eu.fasta
+    output: output/P22033/P22033_blasthits.fasta
+    log: logs/P22033_get_blasthits.err
+    jobid: 4
+    wildcards: query_id=P22033
+    resources: time_min=300
+
+
+[Sun Sep  5 22:12:03 2021]
+rule get_blasthits:
+    input: output/P68871/P68871_blasthits.out, output/P68871/P68871.fasta, /truba/home/emrah/shared/blastdb/all_eu.fasta
+    output: output/P68871/P68871_blasthits.fasta
+    log: logs/P68871_get_blasthits.err
+    jobid: 7
+    wildcards: query_id=P68871
+    resources: time_min=300
+
+
+[Sun Sep  5 22:12:03 2021]
+rule get_blasthits:
+    input: output/P01008/P01008_blasthits.out, output/P01008/P01008.fasta, /truba/home/emrah/shared/blastdb/all_eu.fasta
+    output: output/P01008/P01008_blasthits.fasta
+    log: logs/P01008_get_blasthits.err
+    jobid: 1
+    wildcards: query_id=P01008
+    resources: time_min=300
+
+
+[Sun Sep  5 22:12:03 2021]
+localrule all:
+    input: output/P01008/P01008_blasthits.fasta, output/P22033/P22033_blasthits.fasta, output/P68871/P68871_blasthits.fasta
+    jobid: 0
+
+Job counts:
+        count   jobs
+        1       all
+        3       get_blasthits
+        3       psiblastp
+        3       query_fasta
+        10
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.
+
+
+
+
+
+
+
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  
+Building DAG of jobs...
+Creating conda environment envs/blastp.yml...
+Downloading and installing remote packages.
+Environment for envs/blastp.yml created (location: .snakemake/conda/75b63ec4)
+Creating conda environment envs/python.yml...
+Downloading and installing remote packages.
+Environment for envs/python.yml created (location: .snakemake/conda/d587695b)
+Using shell: /usr/bin/bash
+Provided cluster nodes: 3
+Job counts:
+
+
+
+
+
+
+Select jobs to execute...
+
+[Sun Sep  5 22:14:11 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P22033/P22033.fasta                                                                                                                     
+    log: logs/P22033_query_fasta.err                                                                                                                       
+    jobid: 6                                                                                                                                               
+    wildcards: query_id=P22033                                                                                                                             
+
+Submitted job 6 with external jobid 'Submitted batch job 7565694'.
+
+[Sun Sep  5 22:14:16 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P01008/P01008.fasta                                                                                                                     
+    log: logs/P01008_query_fasta.err                                                                                                                       
+    jobid: 3                                                                                                                                               
+    wildcards: query_id=P01008                                                                                                                             
+
+Submitted job 3 with external jobid 'Submitted batch job 7565695'.
+
+[Sun Sep  5 22:14:21 2021]
+rule query_fasta:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta                                                                                                   
+    output: output/P68871/P68871.fasta                                                                                                                     
+    log: logs/P68871_query_fasta.err                                                                                                                       
+    jobid: 9                                                                                                                                               
+    wildcards: query_id=P68871                                                                                                                             
+
+Submitted job 9 with external jobid 'Submitted batch job 7565696'.
+[Sun Sep  5 22:15:01 2021]
+Finished job 6.
+1 of 10 steps (10%) done
+Select jobs to execute...
+
+[Sun Sep  5 22:15:01 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P22033/P22033.fasta
+    output: output/P22033/P22033_blasthits.out
+    log: logs/P22033_psiblastp.err
+    jobid: 5
+    wildcards: query_id=P22033
+
+Submitted job 5 with external jobid 'Submitted batch job 7565728'.
+[Sun Sep  5 22:15:11 2021]
+Finished job 3.
+2 of 10 steps (20%) done
+Select jobs to execute...
+[Sun Sep  5 22:15:11 2021]
+Finished job 9.
+3 of 10 steps (30%) done
+
+[Sun Sep  5 22:15:11 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P01008/P01008.fasta
+    output: output/P01008/P01008_blasthits.out
+    log: logs/P01008_psiblastp.err
+    jobid: 2
+    wildcards: query_id=P01008
+
+Submitted job 2 with external jobid 'Submitted batch job 7565739'.
+Select jobs to execute...
+
+[Sun Sep  5 22:15:18 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P68871/P68871.fasta
+    output: output/P68871/P68871_blasthits.out
+    log: logs/P68871_psiblastp.err
+    jobid: 8
+    wildcards: query_id=P68871
+
+Submitted job 8 with external jobid 'Submitted batch job 7565741'.
+
+
+-bash-4.2$ scancel 7565739
+
+
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7565696  sardalya test.job    emrah  R       0:12      1 sardalya152
+           7565694  sardalya test.job    emrah  R       0:18      1 sardalya152
+           7565695  sardalya test.job    emrah  R       0:18      1 sardalya152
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7565728  sardalya test.job    emrah PD       0:00      1 (Resources)
+           7565696  sardalya test.job    emrah  R       0:38      1 sardalya152
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7565728  sardalya test.job    emrah PD       0:00      1 (Resources)
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7565741  sardalya test.job    emrah  R       0:01      1 sardalya152
+           7565739  sardalya test.job    emrah  R       0:03      1 sardalya152
+           7565728  sardalya test.job    emrah  R       0:07      1 sardalya152
+
+
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  --dry-run
+Building DAG of jobs...
+IncompleteFilesException:
+The files below seem to be incomplete. If you are sure that certain files are not incomplete, mark them as complete with                                   
+
+    snakemake --cleanup-metadata <filenames>                                                                                                               
+
+To re-generate the files rerun your command with the --rerun-incomplete flag.                                                                              
+Incomplete files:                                                                                                                                          
+output/P01008/P01008_blasthits.out                                                                                                                         
+(snakemake) -bash-4.2$ rm -rf output/P01008/P01008_blasthits.out
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  --dry-run
+Building DAG of jobs...
+Job counts:
+
+
+
+
+
+
+[Sun Sep  5 22:28:32 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P01008/P01008.fasta                                                                       
+    output: output/P01008/P01008_blasthits.out                                                                                                             
+    log: logs/P01008_psiblastp.err                                                                                                                         
+    jobid: 2                                                                                                                                               
+    wildcards: query_id=P01008                                                                                                                             
+
+
+[Sun Sep  5 22:28:32 2021]
+rule get_blasthits:
+    input: output/P01008/P01008_blasthits.out, output/P01008/P01008.fasta, /truba/home/emrah/shared/blastdb/all_eu.fasta
+    output: output/P01008/P01008_blasthits.fasta
+    log: logs/P01008_get_blasthits.err
+    jobid: 1
+    wildcards: query_id=P01008
+    resources: time_min=300
+
+
+[Sun Sep  5 22:28:32 2021]
+localrule all:
+    input: output/P01008/P01008_blasthits.fasta, output/P22033/P22033_blasthits.fasta, output/P68871/P68871_blasthits.fasta
+    jobid: 0
+
+Job counts:
+        count   jobs
+        1       all
+        1       get_blasthits
+        1       psiblastp
+        3
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 3
+Job counts:
+        count   jobs
+        1       all
+        1       get_blasthits
+        1       psiblastp
+        3
+Select jobs to execute...
+
+[Sun Sep  5 22:28:43 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P01008/P01008.fasta
+    output: output/P01008/P01008_blasthits.out
+    log: logs/P01008_psiblastp.err
+    jobid: 2
+    wildcards: query_id=P01008
+
+Submitted job 2 with external jobid 'Submitted batch job 7565863'.
+
+
+-bash-4.2$ squeue 
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7565863  sardalya test.job    emrah  R       0:24      1 sardalya152
+           
+(snakemake) -bash-4.2$ snakemake -j 3 --use-conda --cluster "sbatch -A emrah -p sardalya -n 4 -J test.job -t 30:00" --keep-going  
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cluster nodes: 3
+Job counts:
+
+
+
+
+
+Select jobs to execute...
+
+[Sun Sep  5 22:28:43 2021]
+rule psiblastp:
+    input: /truba/home/emrah/shared/blastdb/all_eu.fasta, output/P01008/P01008.fasta                                                                       
+    output: output/P01008/P01008_blasthits.out                                                                                                             
+    log: logs/P01008_psiblastp.err                                                                                                                         
+    jobid: 2                                                                                                                                               
+    wildcards: query_id=P01008                                                                                                                             
+
+Submitted job 2 with external jobid 'Submitted batch job 7565863'.
+
+
+
+
+
+[Sun Sep  5 22:33:33 2021]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Sun Sep  5 22:33:33 2021]
+rule get_blasthits:
+    input: output/P01008/P01008_blasthits.out, output/P01008/P01008.fasta, /truba/home/emrah/shared/blastdb/all_eu.fasta
+    output: output/P01008/P01008_blasthits.fasta
+    log: logs/P01008_get_blasthits.err
+    jobid: 1
+    wildcards: query_id=P01008
+    resources: time_min=300
+
+Submitted job 1 with external jobid 'Submitted batch job 7565868'.
+[Sun Sep  5 22:38:53 2021]
+Finished job 1.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Sun Sep  5 22:38:54 2021]
+localrule all:
+    input: output/P01008/P01008_blasthits.fasta, output/P22033/P22033_blasthits.fasta, output/P68871/P68871_blasthits.fasta
+    jobid: 0
+
+[Sun Sep  5 22:38:54 2021]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: /truba/home/emrah/WORKFOLDER/TEST/TUTORIAL_0921/exp5/.snakemake/log/2021-09-05T222843.110415.snakemake.log
+

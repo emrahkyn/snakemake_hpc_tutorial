@@ -1,0 +1,50 @@
+configfile: "config.yml"
+
+rule all:
+    input:
+        expand("output/{query_id}/{query_id}_blasthits.fasta",query_id=config["query_ids"]),
+
+rule query_fasta:
+    input:
+        blastdb = config["blastdb"]
+    output:
+        fasta_file= "output/{query_id}/{query_id}.fasta"
+    log:
+        "logs/{query_id}_query_fasta.err" 
+    params:
+        query_id = "{query_id}"
+    conda:
+        "envs/python.yml"   
+    shell:
+        "python scripts/make_query_fasta.py {params.query_id}  {input.blastdb} {output.fasta_file} 2> {log}"
+
+
+rule psiblastp:
+    input:
+        blastdb = config["blastdb"],
+        query_fasta = "output/{query_id}/{query_id}.fasta"
+    output:
+        outfile = "output/{query_id}/{query_id}_blasthits.out"
+    log:
+        "logs/{query_id}_psiblastp.err"
+    conda:
+        "envs/blastp.yml"
+    shell:
+        "psiblast -query {input.query_fasta} -db {input.blastdb} -outfmt {config[outfmt]} -out {output.outfile} -max_target_seqs {config[max_target_seqs]} -num_iterations {config[num_iterations]}  2> {log}"
+
+rule get_blasthits:
+    input:
+        blastp_out = "output/{query_id}/{query_id}_blasthits.out",
+        query_fasta = "output/{query_id}/{query_id}.fasta",
+        blastdb = config["blastdb"]
+    output:
+        blast_fasta = "output/{query_id}/{query_id}_blasthits.fasta",
+    resources:
+        time_min=300
+    conda:
+        "envs/python.yml"
+    log:
+        "logs/{query_id}_get_blasthits.err"
+    shell:
+        "python3 scripts/parse_blastp.py {input.blastp_out} {config[blast_hit_number]} {config[max_e_value]} {config[min_identity]} {input.blastdb} {input.query_fasta} 2> {log}"
+
