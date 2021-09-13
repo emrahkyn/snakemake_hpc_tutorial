@@ -196,7 +196,8 @@ Burada her bir hesap parçacığı için Snakemake bir slurm iş dosyası (önce
 
 
 
-![pipeline1.png](:/1f1c3b728b454554900b9a933fea4eda)
+![is ikisi 1](images/pipeline1.png)
+
 **Şekil 1.** Örnek iş akışı diagramı
 
 İş paketi yöneticisi (conda), kullanıcı arayüzünde kullanıcı tarafından bir yükleme yapılmaksızın gerekli ortamın kurulması, çevre değişkenlerinin tanımlanmasından sorumludur. Bir yaml dosyası üzerinden istenilen versiyonda yazılım belirtilen repo’dan indirilerek kurulum yapılır. Uygulamada geçen örnek yaml dosyası aşağıda verilmiştir. Özetle, bioconda reposundan blast’ın 2.9.0 versiyonunu kur demektir. Snakemake, conda paket yöneticisi ile entegredir, Snakefile içerisinde her bir rule altında conda değişkeni ile yaml dosyası verilerek iş akışında ki her bir görev için ayrı ortamları tanımlamaya olanak sağlar. Benzer şekilde rule altında resources değişkeni ile her bir hesap için ayrı ayrı kaynak talebinde bulunabilir. Örneğin, “cpus=8, time_min=300” ile o hesap için 8 çekirdek talep edileceği, hesaplamanın da 300 sn süreceği belirtilmiş olur.
@@ -286,7 +287,8 @@ Aynı iş akışında üretilen dosyaların kontrolünü Snakemake garanti etmek
 
 
 
-![pipeline2.png](:/51238b18bd324d968c9cdb692f21b898)
+![is ikisi 2](images/pipeline2.png)
+
 **Şekil 2.** Phylogeny – İş akışı diagramı
 
 **6. Loglama & Performans**
@@ -308,7 +310,7 @@ Verilerin tutulması lokalde ya da YBH üzerinde arşiv klasöründe tutulabilec
 
 
 
-![framework1.png](:/792056bd7e1d4d3d8a422ca5aa4fd894)
+![framework 1](images/framework1.png)
 **Şekil 3.** Verinin arşivlenmesi ve yedeklenmesi 
 
 Genel olarak mevcut durumu özetleyen, hesabı biten işleri arşivleyen, yedekleyen örnek kodlar aşağıdan ulaşılabilir durumdadır. 
