@@ -18,6 +18,7 @@ https://indico.truba.gov.tr/event/48/
 ## Uygulama 1: Yüksek Başarımlı Hesaplama (YBH) kümesinde örnek iş koşturma <a name="exp1"></a>
 ### Amaç:
 Bu uygulamada, TRUBA YBH kümesine basit bir iş dosyası hazırlanıp koşturulması sağlanacak, bir iş dosyasının olması gereken temel özelliklerinden bahsedilecektir.
+### Kaynak: [Uygulama-1](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp1)
 ### Bilgi:
 #### YBH Temel Bileşenleri
 YBH, temel olarak kullanıcı arayüzü, iş planlayıcı (denetleyici) ve hesaplama uçları bileşenlerinden oluşmaktadır. Kullanıcının yapmak istediği hesaplama ise iş olarak adlandırılmaktadır.
@@ -55,7 +56,7 @@ squeue
 ## Uygulama 2: Ardışık hesaplamanın yapıldığı örnek iş koşturma <a name="exp2"></a>
 ### Amaç:
 Bu uygulamada birbirini takip eden (bir sonraki hesaplamanın önceki hesabın bitmesini beklediği durum) örnek bir hesaplama iş betik dosyası kullanılarak hazırlanmıştır. İş akışı yönetim (workflow) araçları kullanmaksızın bu hesaplamanın nasıl yapılacağı gösterilmiş eksikleri belirtilip ne gibi sorunlarla karşılaşılabileceği tartışılmıştır.
-
+### Kaynak: [Uygulama-2](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp2)
 ### Bilgi:
 Lokal bir bilgisayarda tipik bir hesaplama temel olarak şunları içerir:
 - girdi (dosya)
@@ -117,7 +118,7 @@ ls output
 ## Uygulama 3: Ardışık hesaplamalarda ölçeklenebilirlik <a name="exp3"></a>
 ### Amaç:
 Bu uygulamada 3 protein için 3 tane ardışık hesaplama işi oluşturulacak ve on binlerce iş dosyası olduğunda oluşabilecek sorunlardan bahsedilecektir.
-
+### Kaynak: [Uygulama-3](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp3)
 ### Bilgi:
 Geniş ölçekli (large-scale) bir veri analizinde ölçeklenebilirlik oldukça önemlidir. Hesaplamanın büyüklüğünü ardışık hesapların sayısı yanında kaç tane bu şekilde ardışık işin olduğu da tanımlar. On binlerce hesap bu şekilde yapılacaksa her biri için iş dosyası oluşturmak, isimlerini tek tek değiştirmek, sonuçlarını takip ve kontrol etmek pratik değildir. Nitekim 3 ardışık hesaplama olan 3 iş dosyası için:
 - 9 adet log dosyası
@@ -151,7 +152,7 @@ ls logs, ls output
 ## Uygulama 4: Tek hesaplı basit iş akışı örneği (Snakemake) <a name="exp4"></a>
 ### Amaç:
 İş akışı yöneticisi (snakemake) için çok basit bir hesap oluşturup YBH üzerinde çalıştırılacak ve temel özelliklerinden bahsedilecektir. Snakemake temel komutları ile temel giriş yapılacaktır. 
-
+### Kaynak: [Uygulama-4](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp4)
 ### Bilgi:
 İş akışı yöneticisi, Snakemake, python dili temel alınarak tekrar üretibilen (platform bağımsız çalıştığında aynı sonucu veren) ve ölçeklenebilir (çok sayıda iş ve ardışık hesaplama) bir akış diagramı üretmek için kullanılan bir araçtır. İş akışında herhangi bir değişiklik yapılmaksızın yalnızca yüksek başarımlı hesaplama da değil, aynı zamanda bulut bilişimi, grid hesaplama, lokal sunucuda çalıştırmayı da destekleyen esnek bir araçtır. Bu örnekte tek hesaplı bir iş akışı diagramı snakemake için oluşturulup lokalde ve YBH üzerinde nasıl çalıştığı gösterilmiştir. Örnek bir girdi dosyası basit bir python kodu ile işlenerek kaç adet satır olduğu hesaplanmış ve sonuç yine bir çıktı dosyasına yazılmıştır.
 
@@ -188,7 +189,7 @@ Komutlar
 ## Uygulama 5: Çok hesaplı iş akışı örneği (Snakemake ve Conda) <a name="exp5"></a>
 ### Amaç:
 Snakemake iş akışı yöneticisi ve Conda paket yöneticisinin birlikte kullanıldığı, örnek bir hesap üzerinden 3 protein için küme üzerinde iş koşturulacak, tipik bir iş akışı için gerekli bilgiler tanıtılacaktır.
-
+### Kaynak: [Uygulama-5](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp5)
 ### Bilgi:
 Aşağıda Şekil 1’de Snakemake tarafından hazırlanan hesaplama için oluşturulan iş akışı diagramı verilmiştir. Bu uygulamada 3 protein için (P010008, P22033 ve P68871) her birinde 3 ayrı hesabın yapıldığı (query_fasta, psiblast ve get_blasthits) bir örnek verilmiştir. Şekilden anlaşılacağı üzere iş akışı query_fasta ile başlamakta ve get_blasthits ile sonlanmaktadır. Hesaplardan get_blasthits başlaması için önceki her 2 hesabın bitmesi gerekmektedir. En sonda yer alan all hesabı özel bir tanımlama olup farklı proteinler için iş akışını bağlamakta kullanılmaktadır, özetle tüm proteinler için son hesap olan get_blasthits tamamlanınca işin biteceğini söyler.
 
@@ -261,7 +262,7 @@ t.job -t 30:00" –keep-going
 ## Uygulama 6: Snakemake ile gerçek uygulama – Phylogeny <a name="exp6"></a>
 ### Amaç:
 Sabancı Üniversitesi Adebali Lab olarak büyük ölçekli veri analizinde kullandığımız iş akışı örneği gösterilip ileri düzey yapılandırma örnekleri ile snakemake ve conda’nın bu kapsamda sağladığı avantajlardan bahsedilecektir. 
-
+### Kaynak: [Uygulama-6](https://github.com/emrahkyn/workflow_on_hpc_tutorial/tree/main/exp6)
 ### Bilgi:
 Büyük ölçekli veri analizinda Snakemake ve Conda’nın sağladığı önceki uygulamalarda bahsedilen avantajlara ek olarak araştırmacıların kullanabileceği diğer özellikler aşağıda listelenmiştir. 
 
