@@ -16,6 +16,10 @@ Toplam 6 adet uygulama eğitimi hazırlanmıştır. Bunlar, öncelikle bir YBH v
 
 Her bir uygulama, örnek iş dosyası, konuyla ilgili bilgi, çalıştırılan komutlar ve çıktıları kapsamaktadır. Tüm bu bilgiler uygulama içerisinde yer alan github sayfasında yer almaktadır. 16 Eylül, 2021 tarihinde detayları aşağıda linkte belirtilen sunumda uygulamalı olarak hazırlanan içeriklerin paylaşılması planlanmıştır.
 https://indico.truba.gov.tr/event/48/
+
+Uygulamalarin pratik gosterildigi seminerin video kayitlarina asagidan ulasilabilir:
+https://www.youtube.com/watch?v=vPAS7NPmnH8
+
 * * *
 ## Uygulama 1: Yüksek Başarımlı Hesaplama (YBH) kümesinde örnek iş koşturma <a name="exp1"></a>
 ### Amaç:
